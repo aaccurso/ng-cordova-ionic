@@ -5,7 +5,7 @@ angular.module('ngCordovaIonic', ['ngCordova']);
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('$cordovaReady', function ($q, $ionicPlatform) {
+.factory('$cordovaReady', ["$q", "$ionicPlatform", function ($q, $ionicPlatform) {
   return function () {
     var q = $q.defer();
     $ionicPlatform.ready(function () {
@@ -17,12 +17,12 @@ angular.module('ngCordovaIonic')
     });
     return q.promise;
   };
-});
+}]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('fileSystemService', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
+.factory('fileSystemService', ["$window", "$q", "$ionicPlatform", "$cordovaReady", "$log", function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   var fileSystemService = {};
   var q = $q.defer();
   var getFilePath = function (filesystem, fileName) {
@@ -118,12 +118,12 @@ angular.module('ngCordovaIonic')
   };
 
   return fileSystemService;
-});
+}]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('localStorage', function ($window) {
+.factory('localStorage', ["$window", function ($window) {
   var localStorage = {};
   localStorage.set = function (key, value) {
     $window.localStorage[key] = value || '';
@@ -138,12 +138,12 @@ angular.module('ngCordovaIonic')
     return angular.fromJson(localStorage.get(key, defaultJson || "[]"));
   };
   return localStorage;
-});
+}]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
-.service('Notifier', function ($log, $cordovaToast, $cordovaReady) {
+.service('Notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
   this.info = function () {
     var text = _.toArray(arguments).join(' ');
     $cordovaReady().then(function () {
@@ -170,12 +170,12 @@ angular.module('ngCordovaIonic')
       $log.info(text);
     });
   };
-});
+}]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('Popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
+.factory('Popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
   var Popup = {};
   Popup.show = function (title, subTitle, actions) {
     $cordovaReady().then(function () {
@@ -197,4 +197,4 @@ angular.module('ngCordovaIonic')
     });
   };
   return Popup;
-});
+}]);

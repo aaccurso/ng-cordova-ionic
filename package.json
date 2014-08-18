@@ -7,6 +7,7 @@
     "gulp": "^3.8.7",
     "gulp-concat": "^2.3.4",
     "gulp-jshint": "^1.8.4",
+    "gulp-ng-annotate": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^0.3.1"
   },
