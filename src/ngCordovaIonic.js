@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('ngCordovaIonic', []);
+angular.module('ngCordovaIonic', ['ngCordova']);
