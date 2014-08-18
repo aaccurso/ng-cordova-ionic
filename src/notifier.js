@@ -15,7 +15,6 @@ angular.module('ngCordovaIonic')
       $log.info(text);
     });
   };
-  // @deprecated
   this.infoTop = function () {
     var text = _.toArray(arguments).join(' ');
     $cordovaReady().then(function () {
@@ -28,21 +27,5 @@ angular.module('ngCordovaIonic')
     }, function () {
       $log.info(text);
     });
-  };
-  this.log = function () {
-    var text = _.toArray(arguments).join(' ');
-    $log.log(text);
-  };
-  this.success = function () {
-    var text = _.toArray(arguments).join(' ');
-    $log.info(text);
-  };
-  this.warning = function () {
-    var text = _.toArray(arguments).join(' ');
-    $log.warn(text);
-  };
-  this.error = function () {
-    var text = _.toArray(arguments).join(' ');
-    $log.error(text);
   };
 });
