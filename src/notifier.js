@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('AbInbevEncuestas.services')
+angular.module('ngCordovaIonic')
 .service('Notifier', function ($log, $cordovaToast, $cordovaReady) {
   this.info = function () {
     var text = _.toArray(arguments).join(' ');

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('AbInbevEncuestas.services')
+angular.module('ngCordovaIonic')
 .factory('fileSystemService', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   var fileSystemService = {};
   var q = $q.defer();

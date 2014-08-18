@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('AbInbevEncuestas.services')
+angular.module('ngCordovaIonic')
 .factory('localStorage', function ($window) {
   var localStorage = {};
   localStorage.set = function (key, value) {

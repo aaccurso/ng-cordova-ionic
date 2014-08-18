@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('AbInbevEncuestas.services')
+angular.module('ngCordovaIonic')
 .factory('$cordovaReady', function ($q, $ionicPlatform) {
   return function () {
     var q = $q.defer();

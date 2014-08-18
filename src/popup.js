@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('AbInbevEncuestas.services')
+angular.module('ngCordovaIonic')
 .factory('Popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
   var Popup = {};
   Popup.show = function (title, subTitle, actions) {
