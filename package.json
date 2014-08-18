@@ -1,0 +1,28 @@
+{
+  "name": "ngCordovaIonic",
+  "version": "0.1.0",
+  "description": "AngularJS Cordova wrappers for common Cordova plugins and Ionic components.",
+  "main": "dist/ng-cordova-ionic.js",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-concat": "^2.3.4",
+    "gulp-jshint": "^1.8.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaccurso/ng-cordova-ionic.git"
+  },
+  "keywords": [
+    "angularjs",
+    "ionic",
+    "cordova"
+  ],
+  "author": "aaccurso <accurso.alan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaccurso/ng-cordova-ionic/issues"
+  },
+  "homepage": "https://github.com/aaccurso/ng-cordova-ionic"
+}
