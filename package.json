@@ -4,6 +4,9 @@
   "description": "AngularJS Cordova wrappers for common Cordova plugins and Ionic components.",
   "main": "dist/ng-cordova-ionic.js",
   "devDependencies": {
+    "karma": "^0.12.16",
+    "karma-jasmine": "~0.1.5",
+    "karma-phantomjs-launcher": "~0.1.2",
     "gulp": "^3.8.7",
     "gulp-concat": "^2.3.4",
     "gulp-jshint": "^1.8.4",
