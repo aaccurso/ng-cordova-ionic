@@ -1,0 +1,23 @@
+{
+  "name": "ngCordovaIonic",
+  "version": "0.0.0",
+  "homepage": "https://github.com/aaccurso/ng-cordova-ionic",
+  "authors": [
+    "aaccurso <accurso.alan@gmail.com>"
+  ],
+  "description": "AngularJS Cordova wrappers for common Cordova plugins and Ionic components.",
+  "main": "/dist/ng-cordova-ionic.js",
+  "keywords": [
+    "angularjs",
+    "cordova",
+    "ionic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
