@@ -7,15 +7,14 @@ angular.module('ngCordovaIonic', ['ngCordova']);
 angular.module('ngCordovaIonic')
 .factory('$cordovaReady', ["$q", "$ionicPlatform", function ($q, $ionicPlatform) {
   return function () {
-    var q = $q.defer();
-    $ionicPlatform.ready(function () {
+    return $ionicPlatform.ready()
+    .then(function () {
       if (ionic.Platform.isWebView()) {
-        q.resolve();
+        return $q.resolve();
       } else {
-        q.reject('Not cordova.');
+        return $q.reject('Not cordova.');
       }
     });
-    return q.promise;
   };
 }]);
 
