@@ -3,8 +3,9 @@ var gulpConfig = require('./gulp.config.js');
 module.exports = {
   files: [
     // Include jQuery only for testing convience (lots of DOM checking for unit tests on directives)
-    'http://codeorigin.jquery.com/jquery-1.10.2.min.js',
+    './bower_components/jquery/dist/jquery.js',
     './bower_components/ionic/release/js/ionic.bundle.js',
+    './bower_components/angular-mocks/angular-mocks.js',
     './bower_components/ngCordova/dist/ng-cordova.js',
     './bower_components/lodash/dist/lodash.compat.js'
   ]

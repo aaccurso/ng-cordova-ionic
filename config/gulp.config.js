@@ -12,5 +12,5 @@ module.exports = {
   closureEnd: '\n})();',
   dist: 'dist',
   srcFiles: ['src/**/*.js'],
-  testFiles: ['test/**/*.js']
+  testFiles: ['test/**/*.spec.js']
 };

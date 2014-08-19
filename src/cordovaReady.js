@@ -3,13 +3,14 @@
 angular.module('ngCordovaIonic')
 .factory('$cordovaReady', function ($q, $ionicPlatform) {
   return function () {
-    return $ionicPlatform.ready()
-    .then(function () {
+    var q = $q.defer();
+    $ionicPlatform.ready(function () {
       if (ionic.Platform.isWebView()) {
-        return $q.resolve();
+        q.resolve('Cordova');
       } else {
-        return $q.reject('Not cordova.');
+        q.reject('Not cordova');
       }
     });
+    return q.promise;
   };
 });
