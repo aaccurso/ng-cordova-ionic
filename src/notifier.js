@@ -6,6 +6,10 @@ angular.module('ngCordovaIonic')
 
   notifier.toast = function (duration, position) {
     var text = _(arguments).toArray().rest(2).join(' ');
+    if ( !(_.contains(['short', 'long'], duration) &&
+      _.contains(['top', 'center', 'bottom'], position)) ) {
+      throw Error('Not valid duration: ' + duration + ' or position: ' + position);
+    }
     return $cordovaReady().then(function () {
       return $cordovaToast.show(text, duration, position)
       .then(function(success) {
@@ -21,7 +25,7 @@ angular.module('ngCordovaIonic')
     });
   };
   notifier.info = function () {
-    return _.partial(notifier.toast, 'short', 'position').apply(notifier, _.toArray(arguments));
+    return _.partial(notifier.toast, 'short', 'top').apply(notifier, _.toArray(arguments));
   };
 
   return notifier;
