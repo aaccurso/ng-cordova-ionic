@@ -24,6 +24,12 @@ That's the intent of this project :)
 <script src="bower_components/ng-cordova-ionic/dist/ng-cordova-ionic.js"></script>
 ```
 
+- Add as dependency in your angular module:
+
+```javascript
+angular.module('myApp', ['ngCordovaIonic']);
+```
+
 > If you are working with diegonetto's [generator-ionic](https://github.com/diegonetto/generator-ionic) there is no need to add the scripts manually.
 
 > You should be using it anyway, trust me :D
