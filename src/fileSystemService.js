@@ -3,27 +3,26 @@
 angular.module('ngCordovaIonic')
 .factory('fileSystemService', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   var fileSystemService = {};
-  var q = $q.defer();
   var getFilePath = function (filesystem, fileName) {
     return filesystem.root.toURL() + "\/" + fileName;
   };
 
-  $cordovaReady().then(function () {
-    $window.requestFileSystem(
-      LocalFileSystem.PERSISTENT,
-      0, // Unlimited storage size
-      function (filesystem) {
-        $log.debug(filesystem);
-        q.resolve(filesystem);
-      },
-      function (error) {
-        $log.error(error);
-        q.reject(error);
-    });
-  });
-
   fileSystemService.getFilesystem = function () {
-    return q.promise;
+    return $cordovaReady().then(function () {
+      var q = $q.defer();
+      $window.requestFileSystem(
+        LocalFileSystem.PERSISTENT,
+        0, // Unlimited storage size
+        function (filesystem) {
+          $log.debug('Filesystem', filesystem);
+          q.resolve(filesystem);
+        },
+        function (error) {
+          $log.error('Filesystem error', error);
+          q.reject(error);
+      });
+      return q.promise;
+    });
   };
   fileSystemService.getFilePath = function (fileName) {
     // TODO: check if file exists using checkFile
@@ -40,11 +39,11 @@ angular.module('ngCordovaIonic')
         getFilePath(filesystem, fileName),
         {create: false},
         function (fileEntry) {
-          // File exists
+          $log.debug('File exists', fileEntry);
           q.resolve(fileEntry);
         },
         function () {
-          // File doesn't exist
+          $log.debug('File does not exists', filesystem);
           q.resolve(filesystem);
         }
       );
@@ -59,19 +58,20 @@ angular.module('ngCordovaIonic')
       // If file exists remove it
       if (fileEntry.isFile) {
         filePath = fileEntry.toURL();
-        fileEntry.remove(function () {
+        fileEntry.remove(function (success) {
+          $log.debug('File removed', success);
           q.resolve(filePath);
         }, function (error) {
-          $log.error(error);
+          $log.error('File remove error', error);
           q.reject(error);
         });
       } else {
-        filePath = getFilePath(filesystem, fileName);
+        filePath = getFilePath(fileEntry, fileName);
         q.resolve(filePath);
       }
       return q.promise;
     })
-    .then(function (filePath, trustAllHosts, options) {
+    .then(function (filePath) {
       var q = $q.defer();
       var transfer = new FileTransfer();
       transfer.onprogress = function (progressEvent) {
@@ -84,17 +84,14 @@ angular.module('ngCordovaIonic')
       transfer.download(
         encodeURI(uri),
         filePath,
-        function (success) {
-          $log.debug(success);
-          q.resolve(success);
+        function (fileEntry) {
+          $log.debug('File downloaded', fileEntry);
+          q.resolve(fileEntry);
         },
         function (error) {
-          $log.error(error);
+          $log.error('File download error', error);
           q.reject(error);
-        },
-        trustAllHosts,
-        options
-      );
+      });
       return q.promise;
     });
   };
