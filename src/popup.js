@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('Popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
-  var Popup = {};
-  Popup.show = function (title, subTitle, actions) {
+.factory('popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
+  var popup = {};
+  popup.show = function (title, subTitle, actions) {
     $cordovaReady().then(function () {
       $cordovaDialogs.confirm(
         subTitle,
@@ -22,5 +22,5 @@ angular.module('ngCordovaIonic')
       });
     });
   };
-  return Popup;
+  return popup;
 });

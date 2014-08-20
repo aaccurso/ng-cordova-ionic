@@ -71,7 +71,7 @@ angular.module('ngCordovaIonic')
       }
       return q.promise;
     })
-    .then(function (filePath) {
+    .then(function (filePath, trustAllHosts, options) {
       var q = $q.defer();
       var transfer = new FileTransfer();
       transfer.onprogress = function (progressEvent) {
@@ -91,7 +91,10 @@ angular.module('ngCordovaIonic')
         function (error) {
           $log.error(error);
           q.reject(error);
-      });
+        },
+        trustAllHosts,
+        options
+      );
       return q.promise;
     });
   };

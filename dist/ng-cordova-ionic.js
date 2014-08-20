@@ -92,7 +92,7 @@ angular.module('ngCordovaIonic')
       }
       return q.promise;
     })
-    .then(function (filePath) {
+    .then(function (filePath, trustAllHosts, options) {
       var q = $q.defer();
       var transfer = new FileTransfer();
       transfer.onprogress = function (progressEvent) {
@@ -112,7 +112,10 @@ angular.module('ngCordovaIonic')
         function (error) {
           $log.error(error);
           q.reject(error);
-      });
+        },
+        trustAllHosts,
+        options
+      );
       return q.promise;
     });
   };
@@ -143,41 +146,38 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.service('Notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
-  this.info = function () {
-    var text = _.toArray(arguments).join(' ');
-    $cordovaReady().then(function () {
-      $cordovaToast.showShortCenter(text)
+.factory('notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
+  var notifier = {};
+
+  notifier.toast = function (duration, position) {
+    var text = _(arguments).toArray().rest(2).join(' ');
+    return $cordovaReady().then(function () {
+      return $cordovaToast.show(text, duration, position)
       .then(function(success) {
-        $log.info(text);
+        $log.debug(success);
+        return success;
       }, function (error) {
         $log.error(error);
+        return error;
       });
     }, function () {
       $log.info(text);
+      return text;
     });
   };
-  this.infoTop = function () {
-    var text = _.toArray(arguments).join(' ');
-    $cordovaReady().then(function () {
-      $cordovaToast.showShortTop(text)
-      .then(function(success) {
-        $log.info(text);
-      }, function (error) {
-        $log.error(error);
-      });
-    }, function () {
-      $log.info(text);
-    });
+  notifier.info = function () {
+    return _.partial(notifier.toast, 'short', 'position').apply(notifier, _.toArray(arguments));
   };
+
+  return notifier;
 }]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('Popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
-  var Popup = {};
-  Popup.show = function (title, subTitle, actions) {
+.factory('popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
+  var popup = {};
+  popup.show = function (title, subTitle, actions) {
     $cordovaReady().then(function () {
       $cordovaDialogs.confirm(
         subTitle,
@@ -196,5 +196,5 @@ angular.module('ngCordovaIonic')
       });
     });
   };
-  return Popup;
+  return popup;
 }]);

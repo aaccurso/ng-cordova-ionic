@@ -8,24 +8,22 @@ describe('$cordovaReady', function() {
     $rootScope = _$rootScope_;
     $cordovaReady = _$cordovaReady_;
   }));
+  afterEach(function () {
+    delete $window.cordova;
+  });
 
   it('should reject promise when not web view', function() {
-    var platform;
-    $cordovaReady().then(angular.noop,
-    function (error) {
-      platform = error;
-    });
+    var error = jasmine.createSpy('error');
+    $cordovaReady().then(angular.noop, error);
     $rootScope.$digest();
-    expect(platform).toBe('Not cordova');
+    expect(error).toHaveBeenCalled();
   });
 
   it('should resolve promise when cordova is defined', function() {
-    var platform;
+    var success = jasmine.createSpy('success');
     $window.cordova = {};
-    $cordovaReady().then(function (success) {
-      platform = success;
-    });
+    $cordovaReady().then(success);
     $rootScope.$digest();
-    expect(platform).toBe('Cordova');
+    expect(success).toHaveBeenCalled();
   });
 });
