@@ -13,7 +13,8 @@ angular.module('DemoNgCordovaIonic', [
   'DemoNgCordovaIonic.directives',
   'DemoNgCordovaIonic.filters',
   'ionic',
-  'ngCordova'
+  'ngCordova',
+  'ngCordovaIonic'
 ])
 .config(function ($compileProvider, $logProvider) {
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|content):|data:image\//);

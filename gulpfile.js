@@ -14,6 +14,7 @@ gulp.task('build', function() {
     .pipe(concat('ng-cordova-ionic.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(gulpConfig.dist))
+    .pipe(gulp.dest(gulpConfig.demo))
     .pipe(uglify())
     .pipe(rename({
       extname: '.min.js'

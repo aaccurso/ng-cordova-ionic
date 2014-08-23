@@ -11,6 +11,7 @@ module.exports = {
   closureStart: '(function(){\n',
   closureEnd: '\n})();',
   dist: 'dist',
+  demo: 'demo/app/vendor',
   srcFiles: ['src/**/*.js'],
   testFiles: ['test/**/*.spec.js']
 };
