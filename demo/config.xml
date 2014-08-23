@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.github.aaccurso.ngCordovaIonic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Demo ngCordovaIonic</name>
+  <description>
+    Ionic application to demonstrate ngCordovaIonic usage.
+  </description>
+  <author email="accurso.alan@gmail.com" href="http://aaccurso.github.io">
+    Alan Accurso
+  </author>
+  <content src="index.html" />
+  <access origin="*" />
+</widget>
