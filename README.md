@@ -6,15 +6,17 @@ AngularJS Cordova wrappers for common Cordova plugins and Ionic components.
 
 [ngCordova](https://github.com/driftyco/ng-cordova) plugin wrappers are great if you only test your app on a device.
 
-However, for devs like me who spend most of the time testing their Ionic apps on the browser, it's necessary to have fallbacks of some plugins or at least to detect when they are not available and act accordingly.
+However, for devs like me who spend most of the time testing their Ionic apps on the browser, it's necessary to have fallbacks for some plugins or at least detect when they are not available and act accordingly.
 
 That's the intent of this project :)
 
 ## Installation
 
-- Install with bower (this will install all dependencies):
+- Install with bower (this will download all dependencies):
 
 `bower install ng-cordova-ionic -S`
+
+> `-S` to add as dependency to bower.json
 
 - Add to index.html
 
