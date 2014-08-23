@@ -11,7 +11,7 @@ angular.module('DemoNgCordovaIonic.controllers')
   // Default state
   $urlRouterProvider.otherwise('/home');
 })
-.controller('HomeCtrl', function ($scope, $log, popup) {
+.controller('HomeCtrl', function ($scope, $log, popup, notifier) {
   $scope.result = {};
   $scope.dialog = function () {
     popup.show(
@@ -31,5 +31,10 @@ angular.module('DemoNgCordovaIonic.controllers')
         }
       }]
     );
+  };
+  $scope.toast = function () {
+    if ($scope.duration || $scope.position)
+      return notifier.toast($scope.duration, $scope.position, 'Toast', 'test');
+    notifier.info('Toast', 'test');
   };
 });

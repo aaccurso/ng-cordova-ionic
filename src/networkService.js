@@ -5,7 +5,7 @@ angular.module('ngCordovaIonic')
   return function (connectionType) {
     var q = $q.defer();
     $cordovaReady().then(function () {
-      if (connectionType ? $cordovaNetwork.getNetwork() === connectionType : $cordovaNetwork.isOnline()) {
+      if (connectionType ? $cordovaNetwork.getNetwork() === Connection[connectionType] : $cordovaNetwork.isOnline()) {
         $log.debug('Cordova Online');
         q.resolve();
       } else {
