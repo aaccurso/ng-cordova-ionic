@@ -3,81 +3,71 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <title>NgCordovaIonic by aaccurso</title>
   </head>
 
   <body>
+
     <header>
-      <div class="inner">
+      <div class="container">
         <h1>NgCordovaIonic</h1>
-        <h2>AngularJS Cordova wrappers for common Cordova plugins and Ionic components.</h2>
-        <a href="https://github.com/aaccurso/ng-cordova-ionic" class="button"><small>View project on</small>GitHub</a>
+        <h2>Wrappers for ngCordova services with Ionic fallbacks.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/aaccurso/ng-cordova-ionic/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/aaccurso/ng-cordova-ionic/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/aaccurso/ng-cordova-ionic" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
       </div>
     </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    <div class="container">
+      <section id="main_content">
+        <h2>
+<a name="inspiration" class="anchor" href="#inspiration"><span class="octicon octicon-link"></span></a>Inspiration</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p><a href="https://github.com/driftyco/ng-cordova">ngCordova</a> plugin wrappers are great if you only test your app on a device.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>However, for devs like me who spend most of the time testing their Ionic apps on the browser, it's necessary to have fallbacks for some plugins or at least detect when they are not available and act accordingly.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>That's the intent of this project :)</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<ul>
+<li>Install with bower (this will download all dependencies):</li>
+</ul><p><code>bower install ng-cordova-ionic -S</code></p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<blockquote>
+<p><code>-S</code> to add as dependency to bower.json</p>
+</blockquote>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<ul>
+<li>Add to index.html</li>
+</ul><div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"bower_components/lodash/dist/lodash.compat.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"bower_components/ngCordova/dist/ng-cordova.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"bower_components/ng-cordova-ionic/dist/ng-cordova-ionic.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<ul>
+<li>Add as dependency in your angular module:</li>
+</ul><div class="highlight highlight-javascript"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngCordovaIonic'</span><span class="p">]);</span>
+</pre></div>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<blockquote>
+<p>If you are working with diegonetto's <a href="https://github.com/diegonetto/generator-ionic">generator-ionic</a> there is no need to add the scripts manually.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/aaccurso/ng-cordova-ionic/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/aaccurso/ng-cordova-ionic/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/aaccurso/ng-cordova-ionic"></a> is maintained by <a href="https://github.com/aaccurso">aaccurso</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+<p>You should be using it anyway, trust me :D</p>
+</blockquote>
+      </section>
     </div>
 
-  
+    
   </body>
 </html>
