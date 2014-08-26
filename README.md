@@ -35,3 +35,7 @@ angular.module('myApp', ['ngCordovaIonic']);
 > If you are working with diegonetto's [generator-ionic](https://github.com/diegonetto/generator-ionic) there is no need to add the scripts manually.
 
 > You should be using it anyway, trust me :D
+
+## Demo
+
+You can check some of the wrappers usage at [Demo ngCordovaIonic](https://github.com/aaccurso/ng-cordova-ionic/tree/master/demo).
