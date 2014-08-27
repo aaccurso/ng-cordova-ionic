@@ -36,6 +36,6 @@ angular.module('myApp', ['ngCordovaIonic']);
 
 > You should be using it anyway, trust me :D
 
-## Demo
+## Usage
 
 You can check some of the wrappers usage at [Demo ngCordovaIonic](https://github.com/aaccurso/ng-cordova-ionic/tree/master/demo).
