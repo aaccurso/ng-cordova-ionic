@@ -51,48 +51,56 @@ angular.module('ngCordovaIonic')
     });
   };
   fileSystemService.downloadFile = function (uri, fileName) {
-    return fileSystemService.checkFile(fileName)
-    .then(function (fileEntry) {
-      var q = $q.defer();
-      var filePath;
-      // If file exists remove it
-      if (fileEntry.isFile) {
-        filePath = fileEntry.toURL();
-        fileEntry.remove(function (success) {
-          $log.debug('File removed', success);
-          q.resolve(filePath);
-        }, function (error) {
-          $log.error('File remove error', error);
-          q.reject(error);
-        });
-      } else {
-        filePath = getFilePath(fileEntry, fileName);
-        q.resolve(filePath);
-      }
-      return q.promise;
-    })
-    .then(function (filePath) {
+    return fileSystemService.getFilesystem()
+    .then(function (filesystem) {
       var q = $q.defer();
       var transfer = new FileTransfer();
       transfer.onprogress = function (progressEvent) {
         if (progressEvent.lengthComputable) {
           q.notify(Math.round(progressEvent.loaded / progressEvent.total * 100));
         } else {
-          q.notify('...');
+          q.notify(0);
         }
       };
-      transfer.download(
-        encodeURI(uri),
-        filePath,
-        function (fileEntry) {
-          $log.debug('File downloaded', fileEntry);
-          q.resolve(fileEntry);
-        },
-        function (error) {
-          $log.error('File download error', error);
-          q.reject(error);
-      });
-      return q.promise;
+      try {
+        transfer.download(
+          encodeURI(uri),
+          getFilePath(filesystem, fileName),
+          function (fileEntry) {
+            $log.debug('File downloaded', fileEntry);
+            q.resolve(fileEntry);
+          },
+          function (error) {
+            $log.error('File download error', error);
+            q.reject(error);
+        });
+      } catch (ex) {
+        $log.error('File download error', ex.message);
+        q.reject(ex);
+      } finally {
+        return q.promise;
+      }
+    });
+  };
+  fileSystemService.emptyFileSystem = function () {
+    return fileSystemService.getFilesystem()
+    .then(function (filesystem) {
+      var dirReader = filesystem.root.createReader();
+      dirReader.readEntries(function (entries) {
+        _.forEach(entries, function (entry) {
+          if (entry.isDirectory) {
+            entry.removeRecursively(successHandler, errorHandler);
+          } else {
+            entry.remove(successHandler, errorHandler);
+          }
+        });
+      }, errorHandler);
+      function errorHandler (error) {
+        $log.error('Remove error', error);
+      };
+      function successHandler (success) {
+        $log.debug('File removed', success);
+      };
     });
   };
 
