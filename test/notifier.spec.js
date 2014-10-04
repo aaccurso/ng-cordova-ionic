@@ -9,7 +9,21 @@ describe('notifier', function() {
     notifier = _notifier_;
   }));
 
-  it('should throw error when invalid duration or position', function() {
+  it('should return notification text when calling toast', function () {
+    notifier.toast('short', 'top', 'asd', 'bsd').then(function (text) {
+      expect(text).toBe('asd bsd');
+    });
+    $rootScope.$digest();
+  });
+
+  it('should return notification text when calling info', function () {
+    notifier.info('asd', 'bsd').then(function (text) {
+      expect(text).toBe('asd bsd');
+    });
+    $rootScope.$digest();
+  });
+
+  it('should throw error when invalid duration or position', function () {
     expect(function () {
       return notifier.toast('duration', 'position', 'asd');
     }).toThrow();
