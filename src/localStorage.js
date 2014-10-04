@@ -2,18 +2,22 @@
 
 angular.module('ngCordovaIonic')
 .factory('localStorage', function ($window) {
-  var localStorage = {};
-  localStorage.set = function (key, value) {
+  return {
+    set: set,
+    get: get,
+    setJson: setJson,
+    getJson: getJson
+  };
+  function set (key, value) {
     $window.localStorage[key] = value || '';
-  };
-  localStorage.get = function (key, defaultValue) {
+  }
+  function get (key, defaultValue) {
     return $window.localStorage[key] || defaultValue;
-  };
-  localStorage.setJson = function (key, json) {
-    localStorage.set(key, angular.toJson(json  || []));
-  };
-  localStorage.getJson = function (key, defaultJson) {
-    return angular.fromJson(localStorage.get(key, defaultJson || "[]"));
-  };
-  return localStorage;
+  }
+  function setJson (key, json) {
+    set(key, angular.toJson(json  || []));
+  }
+  function getJson (key, defaultJson) {
+    return angular.fromJson(get(key, defaultJson || "[]"));
+  }
 });

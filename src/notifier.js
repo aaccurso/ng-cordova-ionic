@@ -2,9 +2,11 @@
 
 angular.module('ngCordovaIonic')
 .factory('notifier', function ($log, $cordovaToast, $cordovaReady) {
-  var notifier = {};
-
-  notifier.toast = function (duration, position) {
+  return {
+    toast: toast,
+    info: _.partial(toast, 'short', 'top')
+  };
+  function toast (duration, position) {
     var text = _(arguments).toArray().rest(2).join(' ');
     if ( !(_.contains(['short', 'long'], duration) &&
       _.contains(['top', 'center', 'bottom'], position)) ) {
@@ -23,10 +25,5 @@ angular.module('ngCordovaIonic')
       $log.info(text);
       return text;
     });
-  };
-  notifier.info = function () {
-    return _.partial(notifier.toast, 'short', 'top').apply(notifier, _.toArray(arguments));
-  };
-
-  return notifier;
+  }
 });

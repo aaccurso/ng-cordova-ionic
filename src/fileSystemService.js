@@ -2,12 +2,17 @@
 
 angular.module('ngCordovaIonic')
 .factory('fileSystemService', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
-  var fileSystemService = {};
-  var getFilePath = function (filesystem, fileName) {
-    return filesystem.root.toURL() + "\/" + fileName;
+  return {
+    getFilesystem: getFilesystem,
+    getFilePath: getFilePath,
+    checkFile: checkFile,
+    downloadFile: downloadFile,
+    emptyFileSystem: emptyFileSystem
   };
-
-  fileSystemService.getFilesystem = function () {
+  function getFilePath (filesystem, fileName) {
+    return filesystem.root.toURL() + "\/" + fileName;
+  }
+  function getFilesystem () {
     return $cordovaReady().then(function () {
       var q = $q.defer();
       $window.requestFileSystem(
@@ -23,16 +28,15 @@ angular.module('ngCordovaIonic')
       });
       return q.promise;
     });
-  };
-  fileSystemService.getFilePath = function (fileName) {
-    // TODO: check if file exists using checkFile
-    return fileSystemService.getFilesystem()
+  }
+  function getFilePath (fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       return getFilePath(filesystem, fileName);
     });
-  };
-  fileSystemService.checkFile = function (fileName) {
-    return fileSystemService.getFilesystem()
+  }
+  function checkFile (fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       var q = $q.defer();
       filesystem.root.getFile(
@@ -49,9 +53,9 @@ angular.module('ngCordovaIonic')
       );
       return q.promise;
     });
-  };
-  fileSystemService.downloadFile = function (uri, fileName) {
-    return fileSystemService.getFilesystem()
+  }
+  function downloadFile (uri, fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       var q = $q.defer();
       var transfer = new FileTransfer();
@@ -81,9 +85,9 @@ angular.module('ngCordovaIonic')
         return q.promise;
       }
     });
-  };
-  fileSystemService.emptyFileSystem = function () {
-    return fileSystemService.getFilesystem()
+  }
+  function emptyFileSystem () {
+    return getFilesystem()
     .then(function (filesystem) {
       var dirReader = filesystem.root.createReader();
       dirReader.readEntries(function (entries) {
@@ -102,7 +106,5 @@ angular.module('ngCordovaIonic')
         $log.debug('File removed', success);
       };
     });
-  };
-
-  return fileSystemService;
+  }
 });

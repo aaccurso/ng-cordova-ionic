@@ -2,8 +2,10 @@
 
 angular.module('ngCordovaIonic')
 .factory('popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
-  var popup = {};
-  popup.show = function (title, subTitle, actions) {
+  return {
+    show: show
+  };
+  function show (title, subTitle, actions) {
     $cordovaReady().then(function () {
       $cordovaDialogs.confirm(
         subTitle,
@@ -21,6 +23,5 @@ angular.module('ngCordovaIonic')
         buttons: actions
       });
     });
-  };
-  return popup;
+  }
 });

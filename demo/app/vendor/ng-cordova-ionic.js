@@ -23,12 +23,17 @@ angular.module('ngCordovaIonic')
 
 angular.module('ngCordovaIonic')
 .factory('fileSystemService', ["$window", "$q", "$ionicPlatform", "$cordovaReady", "$log", function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
-  var fileSystemService = {};
-  var getFilePath = function (filesystem, fileName) {
-    return filesystem.root.toURL() + "\/" + fileName;
+  return {
+    getFilesystem: getFilesystem,
+    getFilePath: getFilePath,
+    checkFile: checkFile,
+    downloadFile: downloadFile,
+    emptyFileSystem: emptyFileSystem
   };
-
-  fileSystemService.getFilesystem = function () {
+  function getFilePath (filesystem, fileName) {
+    return filesystem.root.toURL() + "\/" + fileName;
+  }
+  function getFilesystem () {
     return $cordovaReady().then(function () {
       var q = $q.defer();
       $window.requestFileSystem(
@@ -44,16 +49,15 @@ angular.module('ngCordovaIonic')
       });
       return q.promise;
     });
-  };
-  fileSystemService.getFilePath = function (fileName) {
-    // TODO: check if file exists using checkFile
-    return fileSystemService.getFilesystem()
+  }
+  function getFilePath (fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       return getFilePath(filesystem, fileName);
     });
-  };
-  fileSystemService.checkFile = function (fileName) {
-    return fileSystemService.getFilesystem()
+  }
+  function checkFile (fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       var q = $q.defer();
       filesystem.root.getFile(
@@ -70,9 +74,9 @@ angular.module('ngCordovaIonic')
       );
       return q.promise;
     });
-  };
-  fileSystemService.downloadFile = function (uri, fileName) {
-    return fileSystemService.getFilesystem()
+  }
+  function downloadFile (uri, fileName) {
+    return getFilesystem()
     .then(function (filesystem) {
       var q = $q.defer();
       var transfer = new FileTransfer();
@@ -102,9 +106,9 @@ angular.module('ngCordovaIonic')
         return q.promise;
       }
     });
-  };
-  fileSystemService.emptyFileSystem = function () {
-    return fileSystemService.getFilesystem()
+  }
+  function emptyFileSystem () {
+    return getFilesystem()
     .then(function (filesystem) {
       var dirReader = filesystem.root.createReader();
       dirReader.readEntries(function (entries) {
@@ -123,29 +127,31 @@ angular.module('ngCordovaIonic')
         $log.debug('File removed', success);
       };
     });
-  };
-
-  return fileSystemService;
+  }
 }]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('localStorage', ["$window", function ($window) {
-  var localStorage = {};
-  localStorage.set = function (key, value) {
+  return {
+    set: set,
+    get: get,
+    setJson: setJson,
+    getJson: getJson
+  };
+  function set (key, value) {
     $window.localStorage[key] = value || '';
-  };
-  localStorage.get = function (key, defaultValue) {
+  }
+  function get (key, defaultValue) {
     return $window.localStorage[key] || defaultValue;
-  };
-  localStorage.setJson = function (key, json) {
-    localStorage.set(key, angular.toJson(json  || []));
-  };
-  localStorage.getJson = function (key, defaultJson) {
-    return angular.fromJson(localStorage.get(key, defaultJson || "[]"));
-  };
-  return localStorage;
+  }
+  function setJson (key, json) {
+    set(key, angular.toJson(json  || []));
+  }
+  function getJson (key, defaultJson) {
+    return angular.fromJson(get(key, defaultJson || "[]"));
+  }
 }]);
 
 'use strict';
@@ -180,9 +186,11 @@ angular.module('ngCordovaIonic')
 
 angular.module('ngCordovaIonic')
 .factory('notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
-  var notifier = {};
-
-  notifier.toast = function (duration, position) {
+  return {
+    toast: toast,
+    info: _.partial(toast, 'short', 'top')
+  };
+  function toast (duration, position) {
     var text = _(arguments).toArray().rest(2).join(' ');
     if ( !(_.contains(['short', 'long'], duration) &&
       _.contains(['top', 'center', 'bottom'], position)) ) {
@@ -201,20 +209,17 @@ angular.module('ngCordovaIonic')
       $log.info(text);
       return text;
     });
-  };
-  notifier.info = function () {
-    return _.partial(notifier.toast, 'short', 'top').apply(notifier, _.toArray(arguments));
-  };
-
-  return notifier;
+  }
 }]);
 
 'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
-  var popup = {};
-  popup.show = function (title, subTitle, actions) {
+  return {
+    show: show
+  };
+  function show (title, subTitle, actions) {
     $cordovaReady().then(function () {
       $cordovaDialogs.confirm(
         subTitle,
@@ -232,6 +237,5 @@ angular.module('ngCordovaIonic')
         buttons: actions
       });
     });
-  };
-  return popup;
+  }
 }]);
