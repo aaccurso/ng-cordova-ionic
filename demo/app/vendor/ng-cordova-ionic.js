@@ -28,10 +28,10 @@ angular.module('ngCordovaIonic')
     getFilePath: getFilePath,
     checkFile: checkFile,
     downloadFile: downloadFile,
-    emptyFileSystem: emptyFileSystem
+    emptyFilesystem: emptyFilesystem
   };
-  function getFilePath (filesystem, fileName) {
-    return filesystem.root.toURL() + "\/" + fileName;
+  function buildPath (filesystem, fileName, dirName) {
+    return _.compact([filesystem.root.toURL(), dirName, fileName]).join("\/");
   }
   function getFilesystem () {
     return $cordovaReady().then(function () {
@@ -50,18 +50,18 @@ angular.module('ngCordovaIonic')
       return q.promise;
     });
   }
-  function getFilePath (fileName) {
+  function getFilePath (fileName, dirName) {
     return getFilesystem()
     .then(function (filesystem) {
-      return getFilePath(filesystem, fileName);
+      return buildPath(filesystem, fileName, dirName);
     });
   }
-  function checkFile (fileName) {
+  function checkFile (fileName, dirName) {
     return getFilesystem()
     .then(function (filesystem) {
       var q = $q.defer();
       filesystem.root.getFile(
-        getFilePath(filesystem, fileName),
+        buildPath(filesystem, fileName, dirName),
         {create: false},
         function (fileEntry) {
           $log.debug('File exists', fileEntry);
@@ -75,8 +75,24 @@ angular.module('ngCordovaIonic')
       return q.promise;
     });
   }
-  function downloadFile (uri, fileName) {
+  function downloadFile (uri, fileName, dirName) {
     return getFilesystem()
+    .then(function (filesystem) {
+      var q = $q.defer();
+      if (!dirName) resolveFilesystem();
+      // Create directory
+      filesystem.root.getDirectory(
+        dirName,
+        {create: true},
+        resolveFilesystem,
+        resolveFilesystem
+      );
+      return q.promise;
+      function resolveFilesystem (result) {
+        result && $log.debug('Create Dir:', result);
+        q.resolve(filesystem);
+      }
+    })
     .then(function (filesystem) {
       var q = $q.defer();
       var transfer = new FileTransfer();
@@ -90,7 +106,7 @@ angular.module('ngCordovaIonic')
       try {
         transfer.download(
           encodeURI(uri),
-          getFilePath(filesystem, fileName),
+          buildPath(filesystem, fileName, dirName),
           function (fileEntry) {
             $log.debug('File downloaded', fileEntry);
             q.resolve(fileEntry);
@@ -107,24 +123,32 @@ angular.module('ngCordovaIonic')
       }
     });
   }
-  function emptyFileSystem () {
+  function emptyFilesystem (condition) {
     return getFilesystem()
     .then(function (filesystem) {
       var dirReader = filesystem.root.createReader();
       dirReader.readEntries(function (entries) {
         _.forEach(entries, function (entry) {
-          if (entry.isDirectory) {
-            entry.removeRecursively(successHandler, errorHandler);
-          } else {
-            entry.remove(successHandler, errorHandler);
+          if (!condition || condition(entry)) {
+            if (entry.isDirectory) {
+              entry.removeRecursively(
+                _.partialRight(successHandler, entry),
+                _.partialRight(errorHandler, entry)
+              );
+            } else {
+              entry.remove(
+                _.partialRight(successHandler, entry),
+                _.partialRight(errorHandler, entry)
+              );
+            }
           }
         });
       }, errorHandler);
-      function errorHandler (error) {
-        $log.error('Remove error', error);
+      function errorHandler (error, entry) {
+        $log.error('Remove error', entry.name, error);
       };
-      function successHandler (success) {
-        $log.debug('File removed', success);
+      function successHandler (success, entry) {
+        $log.debug('File/Dir removed', entry.name, success);
       };
     });
   }
