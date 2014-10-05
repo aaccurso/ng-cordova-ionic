@@ -18,7 +18,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "demo"
   ],
   "dependencies": {
     "ngCordova": "~0.1.3-alpha",
