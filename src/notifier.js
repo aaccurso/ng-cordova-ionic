@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('notifier', function ($log, $cordovaToast, $cordovaReady) {
+.factory('$notifier', function ($log, $cordovaToast, $cordovaReady) {
   return {
     toast: toast,
     info: _.partial(toast, 'short', 'top')

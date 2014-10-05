@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
+.factory('$popup', function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
   return {
     show: show
   };

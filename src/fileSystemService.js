@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('fileSystemService', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
+.factory('$filesystem', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   return {
     getFilesystem: getFilesystem,
     getFilePath: getFilePath,

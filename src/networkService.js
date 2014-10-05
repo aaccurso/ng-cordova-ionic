@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('networkService', function ($q, $log, $cordovaNetwork, $cordovaReady) {
+.factory('$network', function ($q, $log, $cordovaNetwork, $cordovaReady) {
   return function (connectionType) {
     var q = $q.defer();
     $cordovaReady().then(function () {

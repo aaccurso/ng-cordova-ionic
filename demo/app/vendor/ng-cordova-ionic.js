@@ -22,7 +22,7 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('fileSystemService', ["$window", "$q", "$ionicPlatform", "$cordovaReady", "$log", function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
+.factory('$filesystem', ["$window", "$q", "$ionicPlatform", "$cordovaReady", "$log", function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   return {
     getFilesystem: getFilesystem,
     getFilePath: getFilePath,
@@ -157,7 +157,7 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('localStorage', ["$window", function ($window) {
+.factory('$localStorage', ["$window", function ($window) {
   return {
     set: set,
     get: get,
@@ -181,7 +181,7 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('networkService', ["$q", "$log", "$cordovaNetwork", "$cordovaReady", function ($q, $log, $cordovaNetwork, $cordovaReady) {
+.factory('$network', ["$q", "$log", "$cordovaNetwork", "$cordovaReady", function ($q, $log, $cordovaNetwork, $cordovaReady) {
   return function (connectionType) {
     var q = $q.defer();
     $cordovaReady().then(function () {
@@ -209,7 +209,7 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
+.factory('$notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
   return {
     toast: toast,
     info: _.partial(toast, 'short', 'top')
@@ -239,7 +239,7 @@ angular.module('ngCordovaIonic')
 'use strict';
 
 angular.module('ngCordovaIonic')
-.factory('popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
+.factory('$popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
   return {
     show: show
   };
