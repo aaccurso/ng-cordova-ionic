@@ -13,7 +13,6 @@ angular.module('DemoNgCordovaIonic', [
   'DemoNgCordovaIonic.directives',
   'DemoNgCordovaIonic.filters',
   'ionic',
-  'ngCordova',
   'ngCordovaIonic'
 ])
 .config(function ($compileProvider, $logProvider) {

@@ -1,5 +1,5 @@
 {
-  "name": "Demo ngCordovaIonic",
+  "name": "DemoNgCordovaIonic",
   "version": "0.0.0",
   "dependencies": {
     "ionic": "v1.0.0-beta.10",
@@ -14,5 +14,8 @@
     "lodash": {
       "main": "dist/lodash.js"
     }
+  },
+  "resolutions": {
+    "angular": "1.2.26"
   }
 }

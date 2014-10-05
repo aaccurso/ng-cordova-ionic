@@ -1,7 +1,10 @@
 <ion-view>
-  <button class="button button-positive" ng-click="dialog()">Dialog</button>
-  <span>{{result.dialog}}</span>
-  <button class="button button-positive" ng-click="toast()">Toast</button>
-  <input type="text" placeholder="duration" ng-model="duration">
-  <input type="text" placeholder="position" ng-model="position">
+  <ion-content class="padding" has-bouncing="false">
+    <button class="button button-positive" ng-click="dialog()">Dialog</button>
+    <span>{{result.dialog}}</span>
+    <hr>
+    <button class="button button-positive" ng-click="toast()">Toast</button>
+    <input type="text" placeholder="duration" ng-model="duration">
+    <input type="text" placeholder="position" ng-model="position">
+  </ion-content>
 </ion-view>
