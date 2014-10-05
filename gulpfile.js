@@ -5,7 +5,8 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   ngAnnotate = require('gulp-ng-annotate'),
   uglify = require('gulp-uglify'),
-  rename = require('gulp-rename');
+  rename = require('gulp-rename')
+  bump = require('gulp-bump');
 
 gulp.task('default', ['build']);
 
@@ -34,4 +35,14 @@ gulp.task('karma-watch', function(done) {
 
 gulp.task('watch', ['build'], function() {
   gulp.watch([gulpConfig.srcFiles, gulpConfig.testFiles], ['build']);
+});
+
+gulp.task('bump', function () {
+  var type = gulp.env.major && 'major' ||
+    gulp.env.minor && 'minor' ||
+    gulp.env.patch && 'patch' ||
+    gulp.env.prerelease && 'prerelease';
+  gulp.src(['./bower.json', './package.json'])
+  .pipe(bump({type: type || 'patch'}))
+  .pipe(gulp.dest('./'));
 });
