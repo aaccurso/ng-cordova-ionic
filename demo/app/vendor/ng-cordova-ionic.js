@@ -1,8 +1,7 @@
+(function(){
 'use strict';
 
 angular.module('ngCordovaIonic', ['ngCordova']);
-
-'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('$cordovaReady', ["$q", "$ionicPlatform", function ($q, $ionicPlatform) {
@@ -18,8 +17,6 @@ angular.module('ngCordovaIonic')
     return q.promise;
   };
 }]);
-
-'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('$filesystem', ["$window", "$q", "$ionicPlatform", "$cordovaReady", "$log", function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
@@ -154,8 +151,6 @@ angular.module('ngCordovaIonic')
   }
 }]);
 
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$localStorage', ["$window", function ($window) {
   return {
@@ -177,8 +172,6 @@ angular.module('ngCordovaIonic')
     return angular.fromJson(get(key, defaultJson || "[]"));
   }
 }]);
-
-'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('$network', ["$q", "$log", "$cordovaNetwork", "$cordovaReady", function ($q, $log, $cordovaNetwork, $cordovaReady) {
@@ -205,8 +198,6 @@ angular.module('ngCordovaIonic')
     return q.promise;
   };
 }]);
-
-'use strict';
 
 angular.module('ngCordovaIonic')
 .factory('$notifier', ["$log", "$cordovaToast", "$cordovaReady", function ($log, $cordovaToast, $cordovaReady) {
@@ -236,8 +227,6 @@ angular.module('ngCordovaIonic')
   }
 }]);
 
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$popup', ["$log", "$cordovaDialogs", "$ionicPopup", "$cordovaReady", function ($log, $cordovaDialogs, $ionicPopup, $cordovaReady) {
   return {
@@ -263,3 +252,5 @@ angular.module('ngCordovaIonic')
     });
   }
 }]);
+
+})();
