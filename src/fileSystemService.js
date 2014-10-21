@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$filesystem', function ($window, $q, $ionicPlatform, $cordovaReady, $log) {
   return {

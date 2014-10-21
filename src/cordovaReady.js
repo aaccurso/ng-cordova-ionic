@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$cordovaReady', function ($q, $ionicPlatform) {
   return function () {

@@ -11,6 +11,7 @@
     "gulp-ng-annotate": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^0.3.1",
+    "gulp-wrap": "^0.5.0",
     "karma": "^0.12.16",
     "karma-jasmine": "~0.1.5",
     "karma-phantomjs-launcher": "~0.1.2"

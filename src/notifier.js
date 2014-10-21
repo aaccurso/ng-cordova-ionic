@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$notifier', function ($log, $cordovaToast, $cordovaReady) {
   return {

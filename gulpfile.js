@@ -4,6 +4,7 @@ var gulp = require('gulp'),
   karmaConf = require('./config/karma.config'),
   concat = require('gulp-concat'),
   ngAnnotate = require('gulp-ng-annotate'),
+  wrap = require('gulp-wrap'),
   uglify = require('gulp-uglify'),
   rename = require('gulp-rename')
   bump = require('gulp-bump');
@@ -14,6 +15,7 @@ gulp.task('build', function() {
   return gulp.src(gulpConfig.srcFiles)
     .pipe(concat('ng-cordova-ionic.js'))
     .pipe(ngAnnotate())
+    .pipe(wrap("(function(){\n'use strict';\n\n<%= contents %>\n})();"))
     .pipe(gulp.dest(gulpConfig.dist))
     .pipe(gulp.dest(gulpConfig.demo))
     .pipe(uglify())

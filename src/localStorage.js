@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$localStorage', function ($window) {
   return {

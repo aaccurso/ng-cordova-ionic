@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ngCordovaIonic')
 .factory('$network', function ($q, $log, $cordovaNetwork, $cordovaReady) {
   return function (connectionType) {
